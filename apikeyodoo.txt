@@ -1,0 +1,38 @@
+//Kiểm tra kết nối
+import json
+import requests
+import random
+data = {"jsonrpc": "2.0","method": "call","params": {"service": "common", "method": "version", "args": ()},"id": random.randint(0, 1000000000), }
+
+url = "http://localhost:8069/jsonrpc"
+res = requests.post(url, json = data, headers = {"Content-Type": "application/json"})
+res.content
+json.loads(res.content) 
+//login và UID
+data = {"jsonrpc": "2.0","method": "call","params": {"service": "common", "method": "login", "args": ("tên data","email đăng nhập","API_KEY")},"id":random.randint(0, 1000000000), }
+res = requests.post(url, json = data, headers = {"Content-Type": "application/json"})
+json.loads(res.content) 
+db="tên data"
+api = "API_KEY"
+//Tìm record
+data = {"jsonrpc": "2.0","method": "call","params": {"service": "object", "method": "execute_kw", "args": (db,2,api, "tutorial.game", "search",[["name","ilike","rpc"]])},"id":random.randint(0, 1000000000), }
+res = requests.post(url, json = data, headers = {"Content-Type": "application/json"})
+json.loads(res.content) 
+//Đọc record
+data = {"jsonrpc": "2.0","method": "call","params": {"service": "object", "method": "execute_kw", "args": (db,2,api, "tutorial.game", "read",[[1,4,5,7,8]]{"fields": ["released_date"]} )},"id":random.randint(0, 1000000000), }
+res = requests.post(url, json = data, headers = {"Content-Type": "application/json"})
+json.loads(res.content) 
+//Tìm rồi đọc
+data = {"jsonrpc": "2.0","method": "call","params": {"service": "object", "method": "execute_kw", "args": (db,2,api, "tutorial.game", "search_read",[["name","ilike","rpc"]]{"fields": ["name"], "limit":5,"off_set":1} )},"id":random.randint(0, 1000000000), }
+res = requests.post(url, json = data, headers = {"Content-Type": "application/json"})
+json.loads(res.content) 
+//Lấy thông tin các trường dữ liệu
+data = {"jsonrpc": "2.0","method": "call","params": {"service": "object", "method": "execute_kw", "args": (db,2,api, "tutorial.game", "fields_get",[], attribute ["string","type"]})},"id":random.randint(0, 1000000000), }
+res = requests.post(url, json = data, headers = {"Content-Type": "application/json"})
+json.loads(res.content) 
+//Tạo thêm record 
+data = {"jsonrpc": "2.0","method": "call","params": {"service": "object", "method": "execute_kw", "args": (db,2,api, "tutorial.game", "create",[{"name":"JSON-RPC", "developer_ids":"Microsoft"}]})},"id":random.randint(0, 1000000000), }
+res = requests.post(url, json = data, headers = {"Content-Type": "application/json"})
+json.loads(res.content) 
+//Update
+//Delete
